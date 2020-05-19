@@ -1,13 +1,13 @@
 # ansible-shell-script
 通过窗口一键初始化/还原操作系统环境和软件,选择性初始化/还原操作系统环境和软件。<br>
-操作详情请参看“https://blog.llyweb.com/articles/2020/05/19/1589894764371.html”
+操作详情请参看https://blog.llyweb.com/articles/2020/05/19/1589894764371.html
 
 
 # 操作方法
 
 ### 窗口选择
 
-![image.png](https://b3logfile.com/file/2020/05/image-fa2d373a.png)
+![image](https://b3logfile.com/file/2020/05/image-fa2d373a.png)
 
 ### 命令概要
 
