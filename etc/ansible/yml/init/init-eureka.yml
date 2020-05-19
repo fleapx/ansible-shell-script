@@ -1,0 +1,20 @@
+- hosts: eureka
+  remote_user: "{{ REMOTE_USER_COMMON }}" 
+  roles:
+  - main
+  tasks:
+   - name: kill eureka port
+     shell: ps -ef|grep "server.port=9000"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+   - name: mkdir eureka-server
+     shell: "mkdir -p {{ REMOTE_PREFIX_PATH }}application/{project,logs}/eureka-server/ && rm -rf {{ REMOTE_PREFIX_PATH }}application/{project,logs}/eureka-server/*"
+   - name: cp eureka
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}application/project/eureka-server/eureka-server-0.0.1-jar.tar.gz"
+      dest: "{{ REMOTE_PREFIX_PATH }}application/project/eureka-server/"
+   - name: unzip eureka
+     shell: "cd {{ REMOTE_PREFIX_PATH }}application/project/eureka-server/ && tar -zxf eureka-server-0.0.1-jar.tar.gz"
+   - name: chown eureka
+     shell: "chown -R {{ REMOTE_USER_COMMON }}.{{ REMOTE_USER_COMMON }} {{ REMOTE_PREFIX_PATH }}application/{project,logs}/eureka-server/"
+   - name: start eureka
+     shell: "cd {{ REMOTE_PREFIX_PATH }}application/project/eureka-server/ && /bin/sh bin/start-prod.sh"
+

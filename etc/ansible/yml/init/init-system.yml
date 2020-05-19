@@ -1,0 +1,23 @@
+- hosts: allhosts
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles: 
+  - main
+  tasks:
+   - name: cp all system sh
+     copy:      
+      src: "{{ LOCAL_FILES_PATH }}scripts/system/"
+      dest: "{{ REMOTE_PREFIX_PATH }}backup/scripts/system/"
+   - name: chmod +x all system sh     
+     shell: "chmod +x {{ REMOTE_PREFIX_PATH }}backup/scripts/system/*"
+   - name: sh init-system-1.sh     
+     shell: "/usr/bin/nohup /bin/sh {{ REMOTE_PREFIX_PATH }}backup/scripts/system/init-system-1.sh {{ REMOTE_PREFIX_PATH }} > /dev/null 2>&1 &"
+   - name: sh init-system-2.sh
+     shell: "/bin/sh {{ REMOTE_PREFIX_PATH }}backup/scripts/system/init-system-2.sh {{ REMOTE_PREFIX_PATH }}"
+   - name: cp system files
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}system/"
+      dest: "{{ REMOTE_PREFIX_PATH }}backup/system/new/"
+   - name: sh init-system-3.sh
+     shell: "/bin/sh {{ REMOTE_PREFIX_PATH }}backup/scripts/system/init-system-3.sh {{ REMOTE_PREFIX_PATH }}"
+
+

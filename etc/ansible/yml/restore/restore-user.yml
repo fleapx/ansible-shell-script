@@ -1,0 +1,11 @@
+- hosts: allhosts
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles: 
+  - main
+  tasks:
+   - name: delete user-1
+     shell: "rm -rf /home/{{ REMOTE_USER_COMMON }} && userdel {{ REMOTE_USER_COMMON }}"
+     ignore_errors: yes
+   - name: delete user-2
+     shell: "userdel {{ REMOTE_USER_COMMON }} && rm -rf /home/{{ REMOTE_USER_COMMON }}"
+     ignore_errors: yes

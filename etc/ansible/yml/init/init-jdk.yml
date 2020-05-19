@@ -1,0 +1,27 @@
+- hosts: allhosts
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles: 
+  - main
+  tasks:
+   - name: mkdir jdk
+     shell: "mkdir -p {{ REMOTE_PREFIX_PATH }}software/workspace/jdk/"
+   - name: del jdk
+     shell: "rm -rf {{ REMOTE_PREFIX_PATH }}software/workspace/jdk/* && rm -rf {{ REMOTE_PREFIX_PATH }}software/install/jdk"
+   - name: cp jdk
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}software/workspace/jdk/"
+      dest: "{{ REMOTE_PREFIX_PATH }}software/workspace/jdk/"
+   - name: unzip jdk
+     shell: "cd {{ REMOTE_PREFIX_PATH }}software/workspace/jdk && tar -zxf jdk-8u172-linux-x64.tar.gz"
+   - name: chown root jdk
+     shell: "chown -R {{ REMOTE_USER_ADMIN }}.{{ REMOTE_USER_ADMIN }} {{ REMOTE_PREFIX_PATH }}software/workspace/jdk/"
+   - name: ln -s jdk
+     shell: "ln -s {{ REMOTE_PREFIX_PATH }}software/workspace/jdk/jdk1.8.0_172 {{ REMOTE_PREFIX_PATH }}software/install/jdk"
+   - name: ln -s java
+     shell: "rm -f /usr/bin/java && ln -s {{ REMOTE_PREFIX_PATH }}software/install/jdk/bin/java /usr/bin/java"
+   - name: ln -s javac
+     shell: "rm -f /usr/bin/javac && ln -s {{ REMOTE_PREFIX_PATH }}software/install/jdk/bin/javac /usr/bin/javac"
+   - name: ln -s jar
+     shell: "rm -f /usr/bin/jar && ln -s {{ REMOTE_PREFIX_PATH }}software/install/jdk/bin/jar /usr/bin/jar"
+
+

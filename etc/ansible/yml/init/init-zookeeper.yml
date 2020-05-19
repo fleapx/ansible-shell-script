@@ -1,0 +1,74 @@
+- hosts: zookeeper-01 
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles:
+  - main
+  tasks:
+   - name: kill zookeeper port
+     shell: ps -ef|grep "zookeeper"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+   - name: mkdir rm zookeeper
+     shell: "mkdir -p {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/ && rm -rf {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/*"
+   - name: cp zookeeper
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}software/workspace/zookeeper/zookeeper-01/zookeeper-3.4.11.tar.gz"
+      dest: "{{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/"
+   - name: unzip zookeeper
+     shell: "cd {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/ && tar -zxf zookeeper-3.4.11.tar.gz"
+   - name: chown zookeeper
+     shell: "chown -R {{ REMOTE_USER_ADMIN }}.{{ REMOTE_USER_ADMIN }} {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/"
+   - name: ln -s zookeeper
+     shell: "rm -f {{ REMOTE_PREFIX_PATH }}software/install/zookeeper && ln -s {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/zookeeper-3.4.11 {{ REMOTE_PREFIX_PATH }}software/install/zookeeper"
+
+
+- hosts: zookeeper-02
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles:
+  - main
+  tasks:
+   - name: kill zookeeper port
+     shell: ps -ef|grep "zookeeper"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+   - name: mkdir rm zookeeper
+     shell: "mkdir -p {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/ && rm -rf {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/*"
+   - name: cp zookeeper
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}software/workspace/zookeeper/zookeeper-02/zookeeper-3.4.11.tar.gz"
+      dest: "{{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/"
+   - name: unzip zookeeper
+     shell: "cd {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/ && tar -zxf zookeeper-3.4.11.tar.gz"
+   - name: chown zookeeper
+     shell: "chown -R {{ REMOTE_USER_ADMIN }}.{{ REMOTE_USER_ADMIN }} {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/"
+   - name: ln -s zookeeper
+     shell: "rm -f {{ REMOTE_PREFIX_PATH }}software/install/zookeeper && ln -s {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/zookeeper-3.4.11 {{ REMOTE_PREFIX_PATH }}software/install/zookeeper"
+
+
+- hosts: zookeeper-03
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles:
+  - main
+  tasks:
+   - name: kill zookeeper port
+     shell: ps -ef|grep "zookeeper"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+   - name: mkdir rm zookeeper
+     shell: "mkdir -p {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/ && rm -rf {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/*"
+   - name: cp zookeeper
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}software/workspace/zookeeper/zookeeper-03/zookeeper-3.4.11.tar.gz"
+      dest: "{{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/"
+   - name: unzip zookeeper
+     shell: "cd {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/ && tar -zxf zookeeper-3.4.11.tar.gz"
+   - name: chown zookeeper
+     shell: "chown -R {{ REMOTE_USER_ADMIN }}.{{ REMOTE_USER_ADMIN }} {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/"
+   - name: ln -s zookeeper
+     shell: "rm -f {{ REMOTE_PREFIX_PATH }}software/install/zookeeper && ln -s {{ REMOTE_PREFIX_PATH }}software/workspace/zookeeper/zookeeper-3.4.11 {{ REMOTE_PREFIX_PATH }}software/install/zookeeper"
+
+- hosts: zookeeper
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles:
+  - main
+  tasks:
+   - name: kill zookeeper port
+     shell: ps -ef|grep "zookeeper"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+  tasks:
+   - name: start zookeeper
+     shell: "cd {{ REMOTE_PREFIX_PATH }}software/install/zookeeper/log && /bin/sh {{ REMOTE_PREFIX_PATH }}software/install/zookeeper/bin/zkServer.sh start"
+
+

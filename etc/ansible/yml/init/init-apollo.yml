@@ -1,0 +1,34 @@
+- hosts: apollo-config-pro-01 
+  remote_user: "{{ REMOTE_USER_COMMON }}"
+  roles:
+  - main
+  tasks:
+   - name: kill apollo-portal port
+     shell: ps -ef|grep "server.port=8070"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+   - name: kill apollo-admin port
+     shell: ps -ef|grep "server.port=8090"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+   - name: kill apollo-config port
+     shell: ps -ef|grep "server.port=8080"|grep -v grep|awk -F " " '{print $2}'|xargs -r kill
+   - name: mkdir rm apollo
+     shell: "mkdir -p {{ REMOTE_PREFIX_PATH }}application/{project,logs}/apollo/ && rm -rf {{ REMOTE_PREFIX_PATH }}application/{project,logs}/apollo/*"
+   - name: cp apollo
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}application/project/apollo/apollo1.3.0.tar.gz"
+      dest: "{{ REMOTE_PREFIX_PATH }}application/project/apollo/"
+   - name: unzip apollo
+     shell: cd "{{ REMOTE_PREFIX_PATH }}application/project/apollo/" && tar -zxf apollo1.3.0.tar.gz
+   - name: unzip apollo-adminservice
+     shell: cd "{{ REMOTE_PREFIX_PATH}}application/project/apollo/apollo-adminservice" && unzip apollo-adminservice-1.3.0-github.zip
+   - name: unzip apollo-configservice
+     shell: cd "{{ REMOTE_PREFIX_PATH }}application/project/apollo/apollo-configservice" && unzip apollo-configservice-1.3.0-github.zip
+   - name: unzip apollo-portal
+     shell: cd "{{ REMOTE_PREFIX_PATH }}application/project/apollo/apollo-portal" && unzip apollo-portal-1.3.0-github.zip
+   - name: chown apollo
+     shell: "chown -R {{ REMOTE_USER_COMMON }}.{{ REMOTE_USER_COMMON }} {{ REMOTE_PREFIX_PATH }}application/{project,logs}/apollo"
+   - name: start apollo-configservice
+     shell: cd "{{ REMOTE_PREFIX_PATH }}application/project/apollo/apollo-configservice/scripts/" && /usr/bin/nohup /bin/sh startup.sh
+   - name: start apollo-adminservice
+     shell: cd "{{ REMOTE_PREFIX_PATH }}application/project/apollo/apollo-adminservice/scripts/" && /usr/bin/nohup /bin/sh startup.sh
+   - name: start apollo-portal
+     shell: cd "{{ REMOTE_PREFIX_PATH }}application/project/apollo/apollo-portal/scripts/" && /usr/bin/nohup /bin/sh startup.sh
+
