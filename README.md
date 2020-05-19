@@ -1,7 +1,7 @@
 # ansible-shell-script
 通过窗口一键初始化/还原操作系统环境和软件,选择性初始化/还原操作系统环境和软件。<br>
-操作详情请参看https://blog.llyweb.com/articles/2020/05/19/1589894764371.html
-#直接下载的脚本，在“/etc/ansible/core”目录中不包括软链接”main.yml”和”nginx_config”，需要根据博客中”core(核心配置)”章节中的内容查看。
+操作详情请参看https://blog.llyweb.com/articles/2020/05/19/1589894764371.html <br>
+直接下载的脚本，在“/etc/ansible/core”目录中不包括软链接”main.yml”和”nginx_config”，需要根据博客中”core(核心配置)”章节中的内容查看。<br>
 
 # 操作方法
 
