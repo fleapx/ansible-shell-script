@@ -1,9 +1,0 @@
-- hosts: allhosts
-  remote_user: "{{ REMOTE_USER_ADMIN }}"
-  roles: 
-  - main
-  tasks:
-   - name: rm user ssh 
-     shell: "rm -rf /home/{{ REMOTE_USER_COMMON }}/.ssh/*"
-     ignore_errors: yes
-
