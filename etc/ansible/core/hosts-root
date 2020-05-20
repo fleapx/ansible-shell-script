@@ -1,0 +1,27 @@
+[allhosts]
+10.10.X.XX ansible_ssh_user=root
+10.10.X.XX ansible_ssh_user=root
+10.10.X.XX ansible_ssh_user=root
+[nginx]
+10.10.X.XX ansible_ssh_user=root
+[node]
+10.10.X.XX ansible_ssh_user=root
+[elasticjob]
+10.10.X.XX ansible_ssh_user=root
+[zookeeper]
+10.10.X.XX ansible_ssh_user=root
+10.10.X.XX ansible_ssh_user=root
+10.10.X.XX ansible_ssh_user=root
+[zookeeper-01]
+10.10.X.XX ansible_ssh_user=root
+[zookeeper-02]
+10.10.X.XX ansible_ssh_user=root
+[zookeeper-03]
+10.10.X.XX ansible_ssh_user=root
+[eureka]
+10.10.X.XX ansible_ssh_user=root
+10.10.X.XX ansible_ssh_user=root
+10.10.X.XX ansible_ssh_user=root
+[apollo-config-pro-01]
+10.10.X.XX ansible_ssh_user=root
+

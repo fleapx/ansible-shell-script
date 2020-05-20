@@ -1,0 +1,17 @@
+- hosts: nginx
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles:
+  - main
+  tasks:
+   - name: backup nginx-config
+     shell: "cd {{ REMOTE_PREFIX_PATH }}software/install/nginx/ && tar -zcf nginx-backup.tar.gz {{ REMOTE_PREFIX_PATH }}software/install/nginx/*"
+   - name: cp nginx-config
+     copy:
+      src: "{{ LOCAL_FILES_PATH }}software/workspace/nginx/nginx-config.tar.gz"
+      dest: "{{ REMOTE_PREFIX_PATH }}software/install/nginx/"
+   - name: unzip nginx-config
+     shell: "cd {{ REMOTE_PREFIX_PATH }}software/install/nginx/ && tar -zxf nginx-config.tar.gz"
+   - name: chown nginx-config
+     shell: "chown -R {{ REMOTE_USER_ADMIN }}.{{ REMOTE_USER_ADMIN }} {{ REMOTE_PREFIX_PATH }}software/install/nginx/"
+   - name: reload nginx
+     shell: nginx -s reload

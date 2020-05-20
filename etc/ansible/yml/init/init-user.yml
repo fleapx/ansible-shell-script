@@ -1,0 +1,11 @@
+- hosts: allhosts
+  remote_user: "{{ REMOTE_USER_ADMIN }}"
+  roles: 
+  - main
+  tasks:
+   - name: create user
+     shell: "useradd {{ REMOTE_USER_COMMON }} && echo {{ REMOTE_USER_COMMON_PASSWORD }}|passwd --stdin {{ REMOTE_USER_COMMON }}"
+     ignore_errors: yes
+   - name: init user path
+     shell: "chown -R {{ REMOTE_USER_COMMON }}.{{ REMOTE_USER_COMMON }} {{ REMOTE_PREFIX_PATH }}application/ && chown -R {{ REMOTE_USER_COMMON }}.{{ REMOTE_USER_COMMON }} {{ REMOTE_PREFIX_PATH }}scripts/application/"
+     ignore_errors: yes
