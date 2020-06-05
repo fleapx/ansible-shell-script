@@ -9,7 +9,7 @@
 
 ### 窗口选择
 
-![image](https://b3logfile.com/file/2020/05/image-fa2d373a.png)
+![image](https://github.com/yazong/imag_pro/blob/master/ansible-shell-script/20200605135509.png)
 
 ### 命令概要
 
